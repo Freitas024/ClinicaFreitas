@@ -6,8 +6,9 @@ export default function Cards() {
       {DoctorRegistered.map((doctor, index) => (
           <li key={index}>
             <h2>{doctor.name}</h2>
-            <h3>{doctor.Paciente}</h3>
-            <p>{doctor.specialization}</p>
+            <h3>Paciente Padrão</h3>
+            <p>Clinico Geral</p>
+            <button>Desmarcar consulta</button>
           </li>
       ))}
     </ul>

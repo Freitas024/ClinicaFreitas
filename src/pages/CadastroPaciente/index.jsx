@@ -1,12 +1,26 @@
 import { useNavigation } from "../../hook/useNavigation";
+import { useRegister } from "../../hook/useRegister";
+import { PacienteRegistered } from "../../Controll";
 import "./stylePatient.css";
 export default function CadastroPaciente() {
   const { handleNavigate } = useNavigation();
+  const { handleChange, registerPaciente } = useRegister();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    PacienteRegistered.push(registerPaciente);
+
+    console.log("Cadastrado com sucesso: ",PacienteRegistered);
+
+  };
 
   return (
     <main className="wrapperPatient">
       <div className="containerReturnLogin">
-        <h3 className="titleReturnLogin">Já possui uma <br/> conta?</h3>
+        <h3 className="titleReturnLogin">
+          Já possui uma <br /> conta?
+        </h3>
         <p className="textReturnLogin">
           Clique no botão abaixo para
           <br />
@@ -19,15 +33,45 @@ export default function CadastroPaciente() {
           Entrar
         </button>
       </div>
-      <form className="formularioPatient">
+      <form className="formularioPatient" onSubmit={handleSubmit}>
         <h3 className="titlePatient">Cadastro Paciente</h3>
         <div className="containerInputs">
-          <input type="text" placeholder="Nome" className="inputPatient" />
-          <input type="text" placeholder="email" className="inputPatient" />
-          <input type="text" placeholder="cpf" className="inputPatient" />
-          <input type="text" placeholder="*******" className="inputPatient" />
+          <input
+            type="text"
+            name="name"
+            placeholder="Nome"
+            className="inputPatient"
+            onChange={handleChange}
+            value={registerPaciente.name}
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            className="inputPatient"
+            onChange={handleChange}
+            value={registerPaciente.email}
+          />
+          <input
+            type="text"
+            name="cpf"
+            placeholder="cpf"
+            className="inputPatient"
+            onChange={handleChange}
+            value={registerPaciente.cpf}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="*******"
+            className="inputPatient"
+            onChange={handleChange}
+            value={registerPaciente.password}
+          />
         </div>
-        <button className="buttonRegisteredPatient">Criar Conta</button>
+        <button className="buttonRegisteredPatient" type="submit">
+          Criar Conta
+        </button>
       </form>
     </main>
   );
