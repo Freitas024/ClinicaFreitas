@@ -1,18 +1,22 @@
 import { useNavigation } from "../../hook/useNavigation";
 import { useRegister } from "../../hook/useRegister";
-import { DoctorRegistered } from "../../Controll";
 import "./styleDoctor.css";
 
 export default function CadastroProfissional() {
   const { handleNavigate } = useNavigation();
-  const { registerDoctor, handleChange } = useRegister();
+  const { registerDoctor, handleChange, setRegisterDoctor } = useRegister();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    DoctorRegistered.push(registerDoctor);
+    const doctors = JSON.parse(localStorage.getItem("doctorRegistered")) || [];
 
-    console.log("Profissional Registrado com sucesso: ", DoctorRegistered);
+    doctors.push(registerDoctor);
+
+    localStorage.setItem("doctorRegistered", JSON.stringify(doctors));
+    
+
+    setRegisterDoctor({name: "", email: "", crm: "", cpf: "", password: ""});
   }
 
   return (

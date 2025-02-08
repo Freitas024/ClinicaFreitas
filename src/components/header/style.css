@@ -4,6 +4,33 @@
     padding: 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: rgb(55, 78, 228);
+}
+
+.imageButton {
+    cursor: pointer;
+}
+
+.welcome {
+    width: 18rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.title {
+    color: #ffffff;
+    font-size: small;
+}
+
+.buttonLogout {
+    padding: 0.5rem 2rem;
+    background-color: #FFFFFF;
+    color: #4885BF;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-weight: bold;
 }

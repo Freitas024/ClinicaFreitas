@@ -1,18 +1,20 @@
 import { useNavigation } from "../../hook/useNavigation";
 import { useRegister } from "../../hook/useRegister";
-import { PacienteRegistered } from "../../Controll";
 import "./stylePatient.css";
 export default function CadastroPaciente() {
   const { handleNavigate } = useNavigation();
-  const { handleChange, registerPaciente } = useRegister();
+  const { handleChange, registerPaciente, setRegisterPaciente } = useRegister();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    PacienteRegistered.push(registerPaciente);
+    const Patients = JSON.parse(localStorage.getItem("PatientRegistered")) || [];
 
-    console.log("Cadastrado com sucesso: ",PacienteRegistered);
+    Patients.push(registerPaciente);
 
+    localStorage.setItem("PatientRegistered", JSON.stringify(Patients));
+
+    setRegisterPaciente( { name: "" , email: "", cpf: "", password: ""});
   };
 
   return (

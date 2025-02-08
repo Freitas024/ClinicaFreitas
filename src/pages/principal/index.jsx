@@ -1,29 +1,29 @@
 import { useState } from "react";
 import { useLogin } from "../../hook/useLogin";
 import { useNavigation } from "../../hook/useNavigation";
-import { PacienteRegistered } from "../../Controll";
 import "./styleHome.css";
 
 export default function Principal() {
   const { handleNavigate } = useNavigation();
-  const { login, handleChange } = useLogin();
+  const { login, handleChange, setLogin } = useLogin();
   const [messageError, setMessageError] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const patient = PacienteRegistered.find(
-      (patient) =>
-        patient.name.toLowerCase() === login.name.toLowerCase() &&
-        patient.password === login.password
-    );
+    const Patients = JSON.parse(localStorage.getItem("PatientRegistered")) || [];
 
-    if (!patient) {
-      setMessageError("Nome ou senha inválidos. Tente novamente.");
-    } else {
-      console.log("login bem-sucedido:", patient.name);
-      setMessageError("");
-      handleNavigate("/Consultas");
+    const patient = Patients.find( p =>  
+      p.name.toLowerCase() === login.name.toLowerCase() && 
+      p.password.toLowerCase() === login.password.toLowerCase()
+    )
+
+    if(patient){
+      localStorage.setItem("loggedInPatient", JSON.stringify(patient));
+      handleNavigate("/Consultas")
+    }else {
+      setMessageError("ERROR: nome ou senha incorretos.")
+      setLogin({ name: "", password: "" });
     }
   };
 
