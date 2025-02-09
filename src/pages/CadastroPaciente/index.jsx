@@ -8,13 +8,25 @@ export default function CadastroPaciente() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const Patients = JSON.parse(localStorage.getItem("PatientRegistered")) || [];
+    const Patients =
+      JSON.parse(localStorage.getItem("PatientRegistered")) || [];
 
-    Patients.push(registerPaciente);
+    const newPaciente = {
+      ...registerPaciente,
+      consultation: registerPaciente.consultation || [],
+    };
+
+    Patients.push(newPaciente);
 
     localStorage.setItem("PatientRegistered", JSON.stringify(Patients));
 
-    setRegisterPaciente( { name: "" , email: "", cpf: "", password: ""});
+    setRegisterPaciente({
+      name: "",
+      email: "",
+      cpf: "",
+      password: "",
+      consultation: [],
+    });
   };
 
   return (

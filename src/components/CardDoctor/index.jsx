@@ -1,25 +1,35 @@
 import { useState, useEffect } from "react";
-import {DoctorRegistered} from "../../Controll";
-export default function Cards() {
+import "./style.css";
 
+export default function Cards() {
   const [loggedInPatient, setLoggedInPatient] = useState("");
-  
-    useEffect(() => {
-      const patient = JSON.parse(localStorage.getItem("loggedInPatient"));
-      if (patient) {
-        setLoggedInPatient(patient.name);
-      }
-    }, []);
+  const [doctorsRegistered, setDoctorsRegistered] = useState([]);
+
+  useEffect(() => {
+    const patient = JSON.parse(localStorage.getItem("loggedInPatient"));
+    if (patient) {
+      setLoggedInPatient(patient.name);
+    }
+
+    const doctors = JSON.parse(localStorage.getItem("doctorRegistered"));
+
+    if (doctors) {
+      setDoctorsRegistered(doctors);
+    }
+  }, []);
 
   return (
-    <ul>
-      {DoctorRegistered.map((doctor, index) => (
-          <li key={index}>
-            <h2>{doctor.name}</h2>
-            <h3>Paciente: {loggedInPatient}</h3>
-            <p>Clinico Geral</p>
-            <button>Cancelar</button>
-          </li>
+    <ul className="wrapperCards">
+      {doctorsRegistered.map((doc, index) => (
+        <li className="containerCard" key={index}>
+          <h2>{doc.name}</h2>
+          <h3>
+            paciente:
+            {loggedInPatient}
+          </h3>
+          <h4>Especialidade: clinico Geral</h4>
+          <button className="buttonCancel">Cancelar</button>
+        </li>
       ))}
     </ul>
   );

@@ -6,6 +6,7 @@ export const useRegister = () => {
     email: "",
     cpf: "",
     password: "",
+    consultation: []
   });
   const [registerDoctor, setRegisterDoctor] = useState({
     name: "",
