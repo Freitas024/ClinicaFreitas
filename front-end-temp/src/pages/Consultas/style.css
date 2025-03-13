@@ -1,0 +1,18 @@
+.buttonNewQuery {
+    padding: 1rem 1rem;
+    margin: 12px;
+    background-color: #4885BF;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: small;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.buttonNewQuery:hover {
+    
+    background-color: #30679b;
+    transition: 0.6s;
+   
+}
