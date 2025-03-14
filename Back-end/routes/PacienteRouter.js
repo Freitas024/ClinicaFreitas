@@ -4,7 +4,7 @@ const Patient = require('../models/Paciente');
 
 router.post('/', async (req, res) => {
     try {
-        const newPatient = new Paciente(req.body);
+        const newPatient = new Patient(req.body);
         await newPatient.save();
         res.status(201).json(newPatient);
     } catch(error){

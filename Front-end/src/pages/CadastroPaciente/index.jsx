@@ -1,32 +1,33 @@
 import { useNavigation } from "../../hook/useNavigation";
 import { useRegister } from "../../hook/useRegister";
+import axios from "axios";
 import "./stylePatient.css";
+
+
 export default function CadastroPaciente() {
+
   const { handleNavigate } = useNavigation();
   const { handleChange, registerPaciente, setRegisterPaciente } = useRegister();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const Patients =
-      JSON.parse(localStorage.getItem("PatientRegistered")) || [];
+    try {
+      console.log(registerPaciente);
+      const response = await axios.post('http://localhost:3000/api/patient', registerPaciente);
 
-    const newPaciente = {
-      ...registerPaciente,
-      consultation: registerPaciente.consultation || [],
+      console.log(`Paciente guardado com sucesso:!: ${response.data}`);
+
+      setRegisterPaciente({
+        name: "",
+        email: "",
+        cpf: "",
+        password: "",
+      });
+
+    } catch(err)  {
+      console.log(`Erro ao enviar dados: ${err}`);
     };
-
-    Patients.push(newPaciente);
-
-    localStorage.setItem("PatientRegistered", JSON.stringify(Patients));
-
-    setRegisterPaciente({
-      name: "",
-      email: "",
-      cpf: "",
-      password: "",
-      consultation: [],
-    });
   };
 
   return (
@@ -55,7 +56,7 @@ export default function CadastroPaciente() {
             name="name"
             placeholder="Nome"
             className="inputPatient"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "paciente")}
             value={registerPaciente.name}
           />
           <input
@@ -63,7 +64,7 @@ export default function CadastroPaciente() {
             name="email"
             placeholder="email"
             className="inputPatient"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "paciente")}
             value={registerPaciente.email}
           />
           <input
@@ -71,7 +72,7 @@ export default function CadastroPaciente() {
             name="cpf"
             placeholder="cpf"
             className="inputPatient"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "paciente")}
             value={registerPaciente.cpf}
           />
           <input
@@ -79,7 +80,7 @@ export default function CadastroPaciente() {
             name="password"
             placeholder="*******"
             className="inputPatient"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "paciente")}
             value={registerPaciente.password}
           />
         </div>

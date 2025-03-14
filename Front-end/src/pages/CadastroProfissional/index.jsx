@@ -43,7 +43,7 @@ export default function CadastroProfissional() {
             name="name"
             placeholder="Nome"
             className="inputDoctor"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "doctor")}
             value={registerDoctor.name}
           />
           <input
@@ -51,7 +51,7 @@ export default function CadastroProfissional() {
             name="email"
             placeholder="email"
             className="inputDoctor"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "doctor")}
             value={registerDoctor.email}
           />
           <input
@@ -59,7 +59,7 @@ export default function CadastroProfissional() {
             name="cpf"
             placeholder="cpf"
             className="inputDoctor"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "doctor")}
             value={registerDoctor.cpf}
           />
           <input
@@ -67,7 +67,7 @@ export default function CadastroProfissional() {
             name="crm"
             placeholder="CRM"
             className="inputDoctor"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "doctor")}
             value={registerDoctor.crm}
           />
           <input
@@ -75,7 +75,7 @@ export default function CadastroProfissional() {
             name="password"
             placeholder="*******"
             className="inputDoctor"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, "doctor")}
             value={registerDoctor.password}
           />
         </div>

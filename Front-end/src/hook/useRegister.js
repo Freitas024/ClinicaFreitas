@@ -6,8 +6,8 @@ export const useRegister = () => {
     email: "",
     cpf: "",
     password: "",
-    consultation: []
   });
+  
   const [registerDoctor, setRegisterDoctor] = useState({
     name: "",
     email: "",
@@ -16,19 +16,22 @@ export const useRegister = () => {
     password: "",
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event, type) => {
     const { name, value } = event.target;
-
-    setRegisterPaciente((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    setRegisterDoctor((prev) => ({
+  
+    if (type === "paciente") {
+      setRegisterPaciente((prev) => ({
         ...prev,
         [name]: value,
-    }));
+      }));
+    } else if (type === "doctor") {
+      setRegisterDoctor((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
+  
 
   return { registerPaciente, handleChange, setRegisterPaciente, registerDoctor, setRegisterDoctor };
 };

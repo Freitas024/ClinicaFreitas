@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.DoctorSchema = new mongoose.Schema({
+const DoctorSchema = new mongoose.Schema({
     name: {type: String, required: true},
     email: {type: String, required: true},
     cpf: {type: String, required: true},
