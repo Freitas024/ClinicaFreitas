@@ -1,21 +1,22 @@
 import { useNavigation } from "../../hook/useNavigation";
 import { useRegister } from "../../hook/useRegister";
+import axios from "axios";
 import "./styleDoctor.css";
 
 export default function CadastroProfissional() {
   const { handleNavigate } = useNavigation();
   const { registerDoctor, handleChange, setRegisterDoctor } = useRegister();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const doctors = JSON.parse(localStorage.getItem("doctorRegistered")) || [];
+    try {
+      await axios.post("http://localhost:3000/api/doctor", registerDoctor);
 
-    doctors.push(registerDoctor);
-
-    localStorage.setItem("doctorRegistered", JSON.stringify(doctors));
+    } catch(error) {
+      console.log(`Erro ao cadastrar medico: ${error}`);
+    }
     
-
     setRegisterDoctor({name: "", email: "", crm: "", cpf: "", password: ""});
   }
 

@@ -14,9 +14,7 @@ export default function CadastroPaciente() {
 
     try {
       console.log(registerPaciente);
-      const response = await axios.post('http://localhost:3000/api/patient', registerPaciente);
-
-      console.log(`Paciente guardado com sucesso:!: ${response.data}`);
+      await axios.post('http://localhost:3000/api/patient', registerPaciente);
 
       setRegisterPaciente({
         name: "",

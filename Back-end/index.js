@@ -5,11 +5,10 @@ const mongoose = require('mongoose');
 const port = 3000;
 const PatientRoutes = require('./routes/PacienteRouter');
 const DoctorRoutes = require('./routes/DoctorRouter');
+const loginAuth = require('./routes/loginAuth');
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:5000'
-}));
+app.use(cors());
 
 
 
@@ -19,6 +18,7 @@ app.get("/", (req, res) => {
 
 app.use('/api/patient', PatientRoutes);
 app.use('/api/doctor', DoctorRoutes);
+app.use('/api/login', loginAuth);
 
 
 //conexão com o banco de dados

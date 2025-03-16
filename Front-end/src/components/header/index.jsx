@@ -6,26 +6,20 @@ import ClincPop from "../../assets/ClinicPop.png";
 
 export default function Header() {
   const { handleNavigate } = useNavigation();
-  const [loggedInPatient, setLoggedInPatient] = useState("");
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const patient = JSON.parse(localStorage.getItem("loggedInPatient"));
-    if (patient) {
-      setLoggedInPatient(patient.name);
+    const storedName = localStorage.getItem('usuarioLogado');
+    if (storedName) {
+      setUserName(storedName);
     }
   }, []);
 
-  const handleClick = (event) => {
-    event.preventDefault();
+  const handleLogout = () => {
+    localStorage.removeItem('usuarioLogado');
+    handleNavigate('/');
+  }
 
-    localStorage.removeItem("loggedInPatient");
-
-    const logout = JSON.parse(localStorage.getItem("loggedInPatient"));
-
-    if(!logout){
-      handleNavigate("/");
-    }
-  };
   return (
     <main className="main">
       <img
@@ -36,9 +30,9 @@ export default function Header() {
       <div className="welcome">
         <h3 className="title">
           Bem-Vindo, <br />
-          {loggedInPatient ? loggedInPatient : "Visitante"}!
+          {userName || 'Visitante'}
         </h3>
-        <button className="buttonLogout" onClick={handleClick}>sair</button>
+        <button className="buttonLogout" onClick={handleLogout}>sair</button>
       </div>
     </main>
   );

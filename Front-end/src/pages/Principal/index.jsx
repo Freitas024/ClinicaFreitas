@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../../hook/useLogin";
 import { useNavigation } from "../../hook/useNavigation";
+import axios from "axios";
 import "./styleHome.css";
 
 export default function Principal() {
@@ -8,23 +9,22 @@ export default function Principal() {
   const { login, handleChange, setLogin } = useLogin();
   const [messageError, setMessageError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const Patients = JSON.parse(localStorage.getItem("PatientRegistered")) || [];
+    try {
+      const response = await axios.post('http://localhost:3000/api/login', login);
 
-    const patient = Patients.find( p =>  
-      p.name.toLowerCase() === login.name.toLowerCase() && 
-      p.password.toLowerCase() === login.password.toLowerCase()
-    )
+      localStorage.setItem('usuarioLogado', response.data.name);
 
-    if(patient){
-      localStorage.setItem("loggedInPatient", JSON.stringify(patient));
-      handleNavigate("/Consultas")
-    }else {
-      setMessageError("ERROR: nome ou senha incorretos.")
+      console.log(`usuario logado: ${response.data.name}`); 
+      handleNavigate('/Consultas');
+
+    } catch (error) {
+      setMessageError(`Credenciais não encontradas ${error}`);
       setLogin({ name: "", password: "" });
     }
+    
   };
 
   return (
